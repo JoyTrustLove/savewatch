@@ -61,6 +61,13 @@ section.screen{flex:1; display:flex; flex-direction:column;}
   font-variant-numeric:tabular-nums;
 }
 .hero.small{font-size:clamp(34px, 11vw, 56px);}
+/* 기도하는 동안 시간을 앞세우지 않는다(P8).
+   ⚠️ 투명도로 흐리게 만들지 않는다 — 명도 대비가 깨져 색약·저시력에 불리하다(P5).
+      대신 크기와 자리만 낮춘다. 보려면 볼 수 있되, 먼저 눈에 들어오지 않게. */
+.hero.quiet{
+  font-size:22px; font-weight:600; color:var(--muted);
+  letter-spacing:0; margin-top:1.4em;
+}
 .sub{font-size:20px; color:var(--muted); margin-top:.9em;}
 .center{display:flex; flex-direction:column; align-items:center; justify-content:center;
         text-align:center; flex:1; gap:0;}
@@ -222,6 +229,7 @@ button{font:inherit; color:inherit; touch-action:manipulation; user-select:none;
    K  : 기록 본체            RK : 진행 중인 기도의 시작 시각
    NK : 백업 안내 1회 노출 표시                              */
 var K='savewatch_v1', RK='savewatch_run_v1', NK='savewatch_notice_v1';
+var MK='savewatch_mode_v1';   /* 기도 중 시간 표시 방식 (A/B 비교용) */
 var THREE_H = 3*60*60*1000;
 var WD=['일','월','화','수','목','금','토'];
 var lastId=null, timer=null;
@@ -267,6 +275,21 @@ function getRun(){
    t가 없는 옛 기록만 문자열을 되읽는다(최대 1초 오차). */
 function runMs(run){
   return (typeof run.t==='number' && isFinite(run.t)) ? run.t : new Date(run.start).getTime();
+}
+
+/* ── 기도 중 시간 표시 방식 (A/B 비교) ────────────────
+   quiet = 작고 낮게 (기본)  ·  hide = 아예 감춤  ·  show = 예전처럼 크게(대조군)
+
+   링크 뒤에 ?t=hide 처럼 붙여 나눠주면, 사람마다 다른 판을 쓰게 된다.
+   ⭐ 한 번 읽은 값은 기기에 적어 둔다 — 홈 화면에 추가하면 링크의 꼬리표가
+      떨어져 나갈 수 있는데, 그때도 처음 받은 판이 유지돼야 비교가 성립한다.
+   설정 화면은 만들지 않는다(P1 — 버튼 하나 원칙).                        */
+function mode(){
+  try{
+    var q=(String(location.search).match(/[?&]t=(quiet|hide|show)/)||[])[1];
+    if(q){ localStorage.setItem(MK,q); return q; }
+    return localStorage.getItem(MK) || 'quiet';
+  }catch(e){ return 'quiet'; }
 }
 
 /* ── 시각·형식 ─────────────────────────────────────── */
@@ -350,7 +373,7 @@ function todayOf(d){
 function show(id){
   var ss=document.querySelectorAll('section.screen');
   for(var i=0;i<ss.length;i++) ss[i].hidden = (ss[i].id!==id);
-  if(id==='praying'){ startTicking(); } else { stopTicking(); }
+  if(id==='praying'){ applyMode(); startTicking(); } else { stopTicking(); }
   if(id==='home') renderHome();
   if(id==='history') renderHistory();
   window.scrollTo(0,0);
@@ -405,12 +428,26 @@ function renderHistory(){
 /* ── 재는 일 ───────────────────────────────────────────
    측정은 언제나 두 시각의 차이다. setInterval은 보여주기 전용이라
    화면이 꺼지든 브라우저가 죽든 잰 시간은 틀어지지 않는다(설계 §4-1). */
+/* 기도 중 화면을 이번 판에 맞게 꾸민다 */
+function applyMode(){
+  var m=mode(), t=el('elapsedText');
+  t.className = (m==='show') ? 'hero' : 'hero quiet';
+  t.hidden    = (m==='hide');
+}
+
 function tick(){
   var run=getRun(); if(!run) return;
   var sec=Math.max(0, Math.round((Date.now()-runMs(run))/1000));
   el('elapsedText').textContent=fmtElapsed(sec);
 }
-function startTicking(){ stopTicking(); tick(); timer=setInterval(tick,1000); }
+/* 감추는 판에서는 초를 세어 보여줄 이유가 없다 — 배터리도 아끼고,
+   무엇보다 바뀔 것 없는 화면을 1초마다 건드리지 않는다.
+   잰 시간은 [끝]을 누를 때 두 시각의 차이로 구하므로 영향이 없다. */
+function startTicking(){
+  stopTicking();
+  if(mode()==='hide') return;
+  tick(); timer=setInterval(tick,1000);
+}
 function stopTicking(){ if(timer){ clearInterval(timer); timer=null; } }
 
 function startPrayer(){
@@ -512,6 +549,10 @@ function toast(m){
 
 /* ── 켤 때 ─────────────────────────────────────────── */
 function boot(){
+  /* 링크의 꼬리표(?t=…)를 열자마자 기기에 적어 둔다.
+     기도를 시작해야만 읽으면, 홈만 보고 나간 사람은 판이 저장되지 않아
+     다음에 열 때 기본값으로 돌아간다 — 그러면 A/B 비교가 깨진다. */
+  mode();
   var run=getRun();
   if(run){
     var ms=Date.now()-runMs(run);
