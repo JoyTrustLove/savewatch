@@ -443,35 +443,52 @@ function renderHistory(){
 function applyMode(){
   var m=mode(), t=el('elapsedText');
   t.className = (m==='show') ? 'hero' : 'hero quiet';
-  t.hidden    = (m==='hide' || m==='sanctuary');
+  /* 성소는 화면째 가라앉으므로 시간을 따로 감추지 않는다 —
+     오히려 두드려 켰을 때 얼마인지 보여야 한다(2026-08-09 정정). */
+  t.hidden    = (m==='hide');
 }
 
 /* ── 성소 모드 ──────────────────────────────────────────
-   시작하고 잠시 뒤 화면이 가라앉는다. 끝낼 때는 두 번 두드린다.
-   ⭐ 한 번이 아니라 두 번인 이유: 주머니 속에서 스치기만 해도 기도가
-      끝나버리면 안 된다. 두 번 두드림은 우연히 일어나지 않는다.       */
-var SANCT_DELAY = 4000;      /* 화면이 가라앉기까지 */
-var TAP_GAP     = 600;       /* 두 번으로 치는 간격 */
-var sanctTimer=null, lastTap=0;
+   시작하고 잠시 뒤 화면이 가라앉는다. 빛도 숫자도 버튼도 없다.
 
+   ⭐ 화면을 두드리는 것은 "켜는" 것이지 기도를 "끝내는" 것이 아니다.
+      (2026-08-09 히로님 지적으로 정정 — 그전에는 두 번 두드리면 곧바로
+       기도가 끝났다. 검은 화면을 두드리는 이유는 대개 "얼마나 됐나"를
+       보려는 것인데, 확인하려다 기도가 끝나버리는 설계였다.
+       끝내기는 되돌릴 수 없는 동작이라 가장 눌리기 쉬운 자리에 두면 안 된다.)
+
+   ⭐ 한 번만 두드려도 켜진다 (히로님 2차 지적).
+      두 번을 요구했던 것은 "잘못 눌러 기도가 끝나는 것"을 막으려던 장치였는데,
+      두드림이 끝내기가 아니게 된 순간 그 위험이 사라졌다.
+      되돌릴 수 있는 동작에 문턱을 남겨둘 이유가 없다(P1 문턱 최저).
+
+   켜진 화면은 손대지 않으면 스스로 다시 가라앉는다 — 확인하고 기도로
+   돌아가는 흐름이 끊기지 않게. 끝내려면 [끝]을 눈으로 보고 눌러야 한다. */
+var SANCT_DELAY = 4000;      /* 처음 가라앉기까지 */
+var SANCT_PEEK  = 6000;      /* 켜둔 뒤 다시 가라앉기까지 */
+var sanctTimer=null;
+
+function sanctSink(delay){
+  if(sanctTimer){ clearTimeout(sanctTimer); sanctTimer=null; }
+  sanctTimer=setTimeout(function(){
+    if(mode()==='sanctuary' && !el('praying').hidden) document.body.className='sanctuary';
+  }, delay);
+}
 function sanctuaryEnter(){
   sanctuaryLeave();
   if(mode()!=='sanctuary') return;
-  sanctTimer=setTimeout(function(){
-    document.body.className='sanctuary';
-  }, SANCT_DELAY);
+  sanctSink(SANCT_DELAY);
 }
 function sanctuaryLeave(){
   if(sanctTimer){ clearTimeout(sanctTimer); sanctTimer=null; }
   document.body.className='';
-  lastTap=0;
 }
-/* 화면 아무 데나 두 번 → 기도를 마친다 */
+/* 화면을 두드리면 잠깐 켠다. 끝내지 않는다. */
 function sanctuaryTap(){
   if(mode()!=='sanctuary' || el('praying').hidden) return;
-  var now=Date.now();
-  if(lastTap && now-lastTap < TAP_GAP){ lastTap=0; endPrayer(); }
-  else lastTap=now;
+  document.body.className='';   /* 켜기 (이미 켜져 있으면 그대로) */
+  tick();                       /* 지금 얼마인지 바로 보여준다 */
+  sanctSink(SANCT_PEEK);        /* 손대지 않으면 다시 가라앉는다 */
 }
 
 function tick(){
@@ -482,10 +499,11 @@ function tick(){
 /* 감추는 판에서는 초를 세어 보여줄 이유가 없다 — 배터리도 아끼고,
    무엇보다 바뀔 것 없는 화면을 1초마다 건드리지 않는다.
    잰 시간은 [끝]을 누를 때 두 시각의 차이로 구하므로 영향이 없다. */
+/* 감추는 판만 세지 않는다. 성소는 두드려 켰을 때 초가 흘러야 하므로 센다
+   — 어차피 검을 때는 눈에 안 보이고, 화면 갱신 한 번은 값이 싸다. */
 function startTicking(){
   stopTicking();
-  var m=mode();
-  if(m==='hide' || m==='sanctuary') return;
+  if(mode()==='hide') return;
   tick(); timer=setInterval(tick,1000);
 }
 function stopTicking(){ if(timer){ clearInterval(timer); timer=null; } }
