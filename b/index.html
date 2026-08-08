@@ -1,0 +1,801 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>세이브 워치 (후보 B)</title>
+<meta name="description" content="기도한 시간이 쌓이는 시계">
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" content="#2B3A67" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0F1216" media="(prefers-color-scheme: dark)">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="세이브 워치">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<link rel="apple-touch-icon" href="data:image/png;base64,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">
+<link rel="icon" type="image/png" href="data:image/png;base64,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">
+<link rel="manifest" href="data:application/manifest+json;base64,eyJuYW1lIjogIuyEuOydtOu4jCDsm4zsuZgiLCAic2hvcnRfbmFtZSI6ICLshLjsnbTruIwg7JuM7LmYIiwgImRlc2NyaXB0aW9uIjogIuq4sOuPhO2VnCDsi5zqsITsnbQg7IyT7J2064qUIOyLnOqzhCIsICJzdGFydF91cmwiOiAiLiIsICJzY29wZSI6ICIuIiwgImRpc3BsYXkiOiAic3RhbmRhbG9uZSIsICJvcmllbnRhdGlvbiI6ICJwb3J0cmFpdCIsICJiYWNrZ3JvdW5kX2NvbG9yIjogIiNGQkZBRjciLCAidGhlbWVfY29sb3IiOiAiIzJCM0E2NyIsICJsYW5nIjogImtvIiwgImljb25zIjogW3sic3JjIjogImRhdGE6aW1hZ2UvcG5nO2Jhc2U2NCxpVkJPUncwS0dnb0FBQUFOU1VoRVVnQUFBTFFBQUFDMENBSUFBQUN5cjVGbEFBQUhRa2xFUVZSNDJ1MmRQNjd0TkJDSFp6OW5CN1JzZ0pvRjhIb3FDamJ3MmxmU1VWRzhEU0FoZGtDQlJFMk5hTmpDWWFSSTkxMmRuRGhqbjlpZUdYL1JyN3M1dVluemVlYm5QN0hsOXRVSGhKNUtLQUlFSEFnNEVIQWc0RURBZ1lBREFRY0NEZ1FjQ0RnUUFnNEVIQWc0RUhBZzRFREFnWUFEQVFjQ0RnUWNDQUVIQWc0RUhBZzRFSEFnNEJpdXI3LzU0ZnNmZjFMOSt2c2ZtLzc1OTcvN3dhRi9lanR0KzVYK0hEaFNTVi9xejcvOHBpLzRmdEdobDlJTDZtV0JJNlMrL2U2anZyOC8vL3I3M3ZuUWY2SC9TUDhkY01SZ29wQXAraDM2VC9OUklqbWN4TWRQbjZjdzhaUVN2WmtjN2tTaVk2SDE5ZTd5MEJ1TGpvakV6U0FETE1VbHBpUnVycEdJMGVMQ3BzZVlRMjg0WWhTUjFaS0lWdVczdHFpcVVLMzFUOXM1VzB2NDlVQVZMdEdFZ1VOZlVyUGwxRmVySnZHUzhLNFgwVXMxaHk1OWhFQWRKSkkxand4b1d6YTNuS05rR1VrV01LYjBOelJRRWlLRXVJYWpLbUNvSjlDQVAvZUc5UWFxcklrK0lIQzBwQko3UmZUV1hLeHFadXRqdWsweEVqcVZlTzVGc0NQaU5zV0lRekxzdmRUK1BaMjlYOThoSDc3Z01IWmo2R214ZXBPQ1BwZkVzcDlhQzRQMlJ1dHRXMEtJSzRzcWdjaHc3dTN6UGFaRUtiSTBNNjhzcHNvSkgrSS9IM3R1N1BWcnFIdndIK0s4R3VVanc4N0g5R0FwbnNsSVlESmV6S2R6K1JDM1ZTYzlHUlkrNWdiT2FYQkFocDJQdGVBb0Y4ZFNaSGd1RVBGbU5TWldsTGtxaDlJcDVrTmNXWTJzYlpPZ0pTT3U0dWV5Wkx6eDRTcTVpSitFc3NMWHA3R0tTSnlFelFWTmFFTndIWnhjeHNGUjZDWmYxb1EybU5PUjNlcmlJWnRtL1VyOWxmRjlEODVNcG9mS2NETjNwZ2ZhWVNsWTV0WURFa3BiY2hrVGEwZkFVWmhuRzJJZTZNVDVwNFdaMVJuZ0tMaU5NVThZV29WNk5jQjV5TVRjaVE5OUpTTVA4R3BDMkNCNHpJR2prRFVKRzY4SGo5Nk9UYWI0YmNMR0pjR2pkMXRQVWlLL1RyT2xhd0NXOFZhVXZvMExZM0JYV3lySm5tZTFEdE91TlUzRzV4U3NhSlR5RkhJS21XVTBIRWNHbTV4eWVYM3IxL1RyQlFjNVpXUm1pUVJIWWE0Yjc3aEhsZXMwZlZCR0JrRG1BbmFhRnRNcFdjdklaNkR2cTFOdldLZGFKeGdPYk1jNE9Bb2pzYnpkZmhXdnh3aXRESE9qRExaMTdTUG80VW5Id1lFYjdlcm5Zc0F4MkZIVEZkYXY3a2xvdEJmVXlNQU1ITUF4RUk2ajhhR0hkbXk0cmJnbWJnRm1hYzMyR05HVVlXMHQ0MmtjelVVSEhNQUJIQnpBd1FFY3dBRWN3QUVjd0FFY3dBRWNkSUxSQ2VhdCt4dzQydUJZWW13Rk9JRGp5L0V3WkcvY0lwVGpvVkxGSHJJM29nMGNiWERFbnV4am55YklpMjlvcXNTZUptaWZZR3pmclg3Wlk5OEdPVG96eGdSais2Y0plTktyMnJIM0tKOG0yRDlxd25iVUdvNE1IelVaSFhWNVFYU09mYkxJOERtay9VTnFiTWNsaGlQU2g5UjIyM0c2SGZYS3gwTThTTElFZzMzeGx2TGVFWXNmeG9vVWIvRVcrN0pQWkpZWEN5cmVzay8yQmM0S2kyeXVmRHkwN0ZJdEdHY25uVGFMcFoyU2FxbkpxdWZCbHA1bWlteUwxTnFYdHlaNGxNTkd3dVd0YnpVTDR4TThDc0VnNGNMNFZjZ1RQSTdDUnRvdE5hbzI0eUY0VklXTmUvVE5lRzQxMjNpVnQ2eGVwRy9ESGpiQ2IrTlZHendXNy9QWXA0bmtHd0RlS3JjT0xaeWMrNmlxS2ttMkRyMVZianE4ckRQZFI0SWxOaDIrVlc1WHZ1QWtvUDJZK3lyYmxaL0dnMzA5V0dvRzRmNWxsd2VyQjdpTm9YQ1VxOExUenB4RnpNZFQ5MUJJS0NOWDdCd0hSN21sdXE4OUs3UnM5MjNYY3RSOGVuNEdPRTdOeEQ3djV1Ymo2WnV1TGFJOGNKeWFpZHJDU21aQ3k4NXMvUHJnbytFb0I0T0d5cFNKak5xU3lRYkg2Y3QrYWs3MUoybnlpejdJMCt4UWZzQXA2ejlQZ09NMHVUeU5uem44eDFFQWFDaVF0SENjVnBRalBrSzNiL1htRzhpWXVCUHZORGhPSThGUmRRbmFQOWIyT0ZPc3hudzRMRTd6cUVERFdkUWp4M0FLK3R5dEptYkNZWG5OUjFVblNvbzVTaVVXQ3pWOUU1TEpjRmdtZ0JWQzY4ZFBuOTI2VkwyeG8ybDhGakk4Ykd3MUh3NmpqVGlxUmxyUUR1Y1g2aTBkQVczSmlVNzJ3M01CaDVHUFFwSDVRYVNBeGV1UHVTZ2N4b0xUYUZ5WTV6SVhrVElXZXR1V0RPaHFEMDFIY05nbm9KZnpzYjZoa1Y1azh4YmxCdWNsejdVNkhQWm1hc0h1dmErc1d0eWRLTkhMNnNWUHArdlpNWFc0UWFJN09LcEdVclNoYUpsTnFkVmFyNmtSKzBWUTlPZDZFYjJVcFdOS2I4elkyRDRhYlFHT0Q4Mk52VnBFM3NPM3NiS3BrUDQzYmVkWFRhaTI5OEhNN1FNTkNVZERUN20rajk2ZkIxbysvNnpxbW5PK2hidHJPQm9HNjQxVzRQSnZMMnJOamR0VUVnbU9MY1UwRExZTm9LVFo4T3JqdUUwbHdlQjRmYjZQdmd3TitKZUFvaGZSU3pXUERJY0lHUEhndUtxUFN6MkJ2bHE5em1ZekM4VG9uN1p6OUdUOXlldmpmT1ZlTXVDWWxtV21UK2FJaFVWVU9CcWFpM09IN0FlN1krQndQU1FiTklsa2cyUEtZTXJyUXkzQU1TZlg5QnRNY2RpL0FoenRsQXd3SmZvdjhqR1JISTZIRHBLdExYcGgwMk5yQ2FjdnV2eHc3SWRuMzQrNmxiOUFmQmg3eStFa2dBTUJCd0lPQkJ3SU9CQndJT0JBd0lHQUF5SGdRTUNCZ0FNQkJ3SU9CQndJT0JCd0lPQkF3SUVRY0NEZ1FNQ0JnQU1CQndJT0JCd0lPRkFhL1E4dW5TbC9lRjlUUXdBQUFBQkpSVTVFcmtKZ2dnPT0iLCAic2l6ZXMiOiAiMTgweDE4MCIsICJ0eXBlIjogImltYWdlL3BuZyIsICJwdXJwb3NlIjogImFueSJ9XX0=">
+<style>
+/* ── SAVE WATCH v0.2 · 전연령판 ─────────────────────────
+   설계서: 02_설계/SAVE_WATCH_설계서_v0.1.md
+   P1 일곱살 · P2 일흔살 · P3 잔고불감소 · P4 데이터불멸 · P5 무색안전 · P6 경첩확장
+   P7 증가 가시성 (v0.2 신설) — 넣었으면 눈금이 움직여야 한다. 화면의 0은
+      "기록 0건"일 때만 존재한다. 바둑루프 R1이 P1~P6의 구멍으로 지목.
+   ※ 상태는 색이 아니라 글자·크기·자리로 구분한다(P5).
+   ─────────────────────────────────────────────────── */
+:root{
+  --bg:#FBFAF7; --ink:#14171C; --muted:#454B54;
+  --accent:#2B3A67; --on-accent:#FFFFFF;
+  --line:#CFCAC0; --card:#FFFFFF; --field:#FFFFFF;
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --bg:#0F1216; --ink:#F2F4F7; --muted:#AEB6C0;
+    --accent:#AFBEEC; --on-accent:#0E121A;
+    --line:#2C333C; --card:#171C22; --field:#101418;
+  }
+}
+*{box-sizing:border-box; -webkit-tap-highlight-color:transparent;}
+[hidden]{display:none !important;}
+html{font-size:20px;}                      /* P2 본문 최소 20px */
+body{
+  margin:0; background:var(--bg); color:var(--ink);
+  font-family:-apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo",
+              "Pretendard", "Malgun Gothic", "맑은 고딕", system-ui, sans-serif;
+  font-size:1rem; line-height:1.5;
+  -webkit-text-size-adjust:100%;
+  min-height:100dvh;
+}
+#app{
+  min-height:100dvh; display:flex; flex-direction:column;
+  padding:calc(24px + env(safe-area-inset-top)) 24px calc(28px + env(safe-area-inset-bottom));
+  max-width:640px; margin:0 auto;
+}
+section.screen{flex:1; display:flex; flex-direction:column;}
+
+/* 글자 단계 */
+.label{font-size:24px; color:var(--muted); font-weight:600;}
+.hero{
+  font-size:clamp(48px, 18vw, 96px); font-weight:800;
+  letter-spacing:-.02em; line-height:1.1; margin:.15em 0 0;
+  font-variant-numeric:tabular-nums;
+}
+.hero.small{font-size:clamp(34px, 11vw, 56px);}
+/* 기도하는 동안 시간을 앞세우지 않는다(P8).
+   ⚠️ 투명도로 흐리게 만들지 않는다 — 명도 대비가 깨져 색약·저시력에 불리하다(P5).
+      대신 크기와 자리만 낮춘다. 보려면 볼 수 있되, 먼저 눈에 들어오지 않게. */
+.hero.quiet{
+  font-size:22px; font-weight:600; color:var(--muted);
+  letter-spacing:0; margin-top:1.4em;
+}
+.sub{font-size:20px; color:var(--muted); margin-top:.9em;}
+.center{display:flex; flex-direction:column; align-items:center; justify-content:center;
+        text-align:center; flex:1; gap:0;}
+
+/* 버튼 — 터치 대상 최소 64px, 주 버튼 88px (P2) */
+button{font:inherit; color:inherit; touch-action:manipulation; user-select:none; cursor:pointer;}
+.primary{
+  width:80%; min-width:220px; min-height:88px; margin-top:auto;
+  background:var(--accent); color:var(--on-accent);
+  border:none; border-radius:22px;
+  font-size:28px; font-weight:800; letter-spacing:.02em;
+  align-self:center;
+}
+.primary:active{transform:scale(.98);}
+.ghost{
+  min-height:64px; padding:0 22px;
+  background:transparent; color:var(--ink);
+  border:2px solid var(--line); border-radius:16px;
+  font-size:20px; font-weight:700;
+}
+.linkish{
+  min-height:64px; background:transparent; border:none;
+  color:var(--muted); font-size:20px; font-weight:600;
+  text-decoration:underline; text-underline-offset:5px;
+  align-self:center; margin-top:18px;
+}
+.row{display:flex; gap:12px; justify-content:center; flex-wrap:wrap;}
+:focus-visible{outline:4px solid var(--accent); outline-offset:3px; border-radius:8px;}
+
+/* 메모 입력 */
+.field{
+  width:100%; min-height:64px; margin-top:20px; padding:14px 16px;
+  font:inherit; font-size:20px;              /* 20px 이상이라 iOS 자동확대 없음 */
+  background:var(--field); color:var(--ink);
+  border:2px solid var(--line); border-radius:16px;
+}
+.field::placeholder{color:var(--muted); opacity:1;}
+
+/* 지난 기록 */
+.head{display:flex; align-items:center; gap:12px; margin-bottom:20px;}
+.head h1{font-size:24px; margin:0; font-weight:800;}
+.list{list-style:none; margin:0; padding:0; flex:1; overflow-y:auto;}
+.item{padding:18px 4px; border-bottom:1px solid var(--line);}
+.item .when{font-size:20px; font-weight:700;}
+.item .note{font-size:18px; color:var(--muted); margin-top:6px; word-break:break-word;}
+.empty{color:var(--muted); font-size:20px; padding:28px 4px;}
+
+/* 알림 카드 — 색이 아니라 테두리·자리로 구분(P5) */
+.card{
+  background:var(--card); border:2px solid var(--line); border-radius:18px;
+  padding:20px; margin-top:22px; font-size:19px;
+}
+.card b{display:block; font-size:21px; margin-bottom:8px;}
+.toast{
+  margin-top:16px; font-size:19px; color:var(--muted);
+  min-height:1.5em; text-align:center;
+}
+.note-small{font-size:18px; color:var(--muted); margin-top:18px; line-height:1.6;}
+
+/* ⭐ 성소(聖所) 모드 — 기도가 시작되면 화면이 스스로 물러난다.
+   빛도 숫자도 버튼도 없다. 끝낼 때만 화면을 두 번 두드린다.
+   설계서 v0.2 N1. "기도에 충실 = 폰이 사라지는 것".
+   ※ opacity로 지우되 요소를 없애지는 않는다 — 화면낭독기에는 그대로 읽힌다. */
+body.sanctuary{ background:#000; }
+body.sanctuary #praying > *{
+  opacity:0; pointer-events:none; transition:opacity 1.6s ease;
+}
+body.sanctuary #app{ cursor:default; }
+
+/* 저장이 안 됐을 때만 뜨는 알림 — 정상 경로에는 한 글자도 늘리지 않는다(P1).
+   색이 아니라 굵은 테두리와 자리로 구분한다(P5). */
+.warn{
+  border:3px solid var(--ink); border-radius:18px;
+  padding:18px 20px; margin-top:22px; font-size:20px; line-height:1.5;
+}
+.warn b{display:block; font-size:22px; margin-bottom:8px;}
+
+/* ── 지난 기록 손보기 (후보 공통) ───────────────────────── */
+.item{position:relative;}
+.item .row2{display:flex; align-items:center; gap:10px;}
+.item .when{flex:1;}
+.iconbtn{
+  min-width:56px; min-height:56px; padding:0 14px;
+  background:transparent; border:2px solid var(--line); border-radius:14px;
+  font-size:18px; font-weight:700; color:var(--ink);
+}
+.sheet{
+  position:fixed; left:0; right:0; bottom:0; z-index:20;
+  background:var(--card); border-top:3px solid var(--ink);
+  border-radius:22px 22px 0 0; padding:24px 24px calc(28px + env(safe-area-inset-bottom));
+  max-width:640px; margin:0 auto;
+}
+.sheet h2{font-size:24px; margin:0 0 6px; font-weight:800;}
+.sheet .said{font-size:20px; color:var(--muted); margin-bottom:16px;}
+.backdrop{position:fixed; inset:0; background:rgba(0,0,0,.45); z-index:19;}
+.danger{border-color:var(--ink); border-width:3px;}
+</style>
+</head>
+<body>
+<div id="app">
+
+<!-- ── 홈 ───────────────────────────────────────────── -->
+<section class="screen" id="home">
+  <div class="center">
+    <div class="label" id="homeLabel">지금까지 쌓인 기도</div>
+    <div class="hero" id="totalText">0분</div>
+    <div class="sub" id="todayText" hidden></div>
+    <div class="warn" id="homeWarn" role="alert" hidden>
+      <b>지금은 기록을 저장할 수 없어요</b>
+      이대로 재면 시간이 사라집니다. 브라우저의 비공개 모드를 끄거나
+      다른 브라우저로 열어 주세요.
+    </div>
+  </div>
+  <button class="primary" id="btnStart">시작</button>
+  <button class="linkish" id="btnHistory">지난 기록 ›</button>
+</section>
+
+<!-- ── 기도 중 ──────────────────────────────────────── -->
+<section class="screen" id="praying" hidden>
+  <div class="center">
+    <div class="label">기도하는 중</div>
+    <div class="hero" id="elapsedText" role="timer">0초</div>
+  </div>
+  <button class="primary" id="btnEnd">끝</button>
+  <div class="sub" style="text-align:center; margin-top:18px;">화면이 꺼져도 시간은 쌓입니다</div>
+</section>
+
+<!-- ── 끝난 직후 ────────────────────────────────────── -->
+<section class="screen" id="done" hidden>
+  <div class="center" style="justify-content:flex-start; padding-top:8vh;">
+    <div class="label" id="gainText" role="status">0초 쌓였어요</div>
+    <div class="hero small" id="newTotalText">모두 0초</div>
+    <div class="warn" id="doneWarn" role="alert" hidden>
+      <b>이 시간을 저장하지 못했어요</b>
+      기기에 자리가 없거나 비공개 모드일 수 있어요. 방금 잰 시간은 남지 않았습니다.
+    </div>
+    <input class="field" id="noteInput" type="text" maxlength="60"
+           placeholder="무엇을 기도했나요? (선택)" enterkeyhint="done">
+    <div class="card" id="backupCard" hidden>
+      <b>기록을 파일로 간직할 수 있어요</b>
+      폰을 오래 안 열면 기록이 지워질 수 있어요. 가끔 파일로 내보내 두면 안심이에요.
+      <div class="row" style="margin-top:16px;">
+        <button class="ghost" id="btnBackupNow">지금 내보내기</button>
+        <button class="ghost" id="btnBackupLater">나중에</button>
+      </div>
+    </div>
+  </div>
+  <button class="primary" id="btnConfirm">확인</button>
+</section>
+
+<!-- ── 이어하기 / 정리하기 (3시간 이상 방치) ─────────── -->
+<section class="screen" id="recover" hidden>
+  <div class="center" style="justify-content:flex-start; padding-top:8vh;">
+    <div class="label">기도를 시작한 채로 오래 지났어요</div>
+    <div class="hero small" id="recoverText">0분</div>
+    <div class="sub">끝을 누르지 않으신 것 같아요. 어떻게 할까요?</div>
+    <div class="row" style="margin-top:28px;">
+      <button class="ghost" id="btnKeep">쌓기</button>
+      <button class="ghost" id="btnDrop">지우기</button>
+    </div>
+  </div>
+</section>
+
+<!-- ── 지난 기록 ────────────────────────────────────── -->
+<section class="screen" id="history" hidden>
+  <div class="head">
+    <button class="ghost" id="btnBack">‹ 돌아가기</button>
+    <h1>지난 기록</h1>
+  </div>
+  <ul class="list" id="list"></ul>
+  <div class="row" style="margin-top:20px;">
+    <button class="ghost" id="btnAdd">＋ 기도 더하기</button>
+    <button class="ghost" id="btnExport">기록 내보내기</button>
+    <button class="ghost" id="btnImport">가져오기</button>
+  </div>
+  <input type="file" id="fileInput" accept="application/json,.json" hidden>
+  <div class="toast" id="toast" role="status"></div>
+  <div class="note-small">
+    각 줄의 [손보기]로 고치거나 지울 수 있어요.<br>기록은 이 기기 안에만 있습니다. 어디로도 보내지 않습니다.<br>
+    폰을 오래 안 열면 지워질 수 있으니 가끔 파일로 내보내 두세요.
+  </div>
+</section>
+
+</div>
+
+<!-- 손보기 시트 (후보 공통) -->
+<div class="backdrop" id="backdrop" hidden></div>
+<div class="sheet" id="sheet" hidden role="dialog" aria-label="기록 손보기">
+  <h2 id="sheetTitle">이 기록</h2>
+  <div class="said" id="sheetWhen"></div>
+  <input class="field" id="sheetNote" type="text" maxlength="60" placeholder="무엇을 기도했나요? (선택)">
+  <div class="row" style="margin-top:18px;">
+    <button class="ghost" id="sheetSave">저장</button>
+    <button class="ghost danger" id="sheetDelete">이 기록 지우기</button>
+    <button class="ghost" id="sheetClose">닫기</button>
+  </div>
+</div>
+
+<!-- 손으로 더하기 시트 (후보 공통) -->
+<div class="sheet" id="addSheet" hidden role="dialog" aria-label="기도 더하기">
+  <h2>기도를 더합니다</h2>
+  <div class="said">앱 없이 기도한 시간을 적어 넣습니다.</div>
+  <div class="row" style="justify-content:flex-start; gap:10px; margin-bottom:14px;">
+    <button class="ghost" data-add="5">5분</button>
+    <button class="ghost" data-add="10">10분</button>
+    <button class="ghost" data-add="30">30분</button>
+    <button class="ghost" data-add="60">1시간</button>
+  </div>
+  <input class="field" id="addMin" type="number" inputmode="numeric" min="1" max="1440" placeholder="직접 입력 (분)">
+  <input class="field" id="addNote" type="text" maxlength="60" placeholder="무엇을 기도했나요? (선택)">
+  <div class="row" style="margin-top:18px;">
+    <button class="ghost" id="addSave">더하기</button>
+    <button class="ghost" id="addClose">닫기</button>
+  </div>
+</div>
+
+<script>
+(function(){
+'use strict';
+
+/* ── 저장소 ────────────────────────────────────────────
+   K  : 기록 본체            RK : 진행 중인 기도의 시작 시각
+   NK : 백업 안내 1회 노출 표시                              */
+var K='savewatch_v1', RK='savewatch_run_v1', NK='savewatch_notice_v1';
+var MK='savewatch_mode_v1';   /* 기도 중 시간 표시 방식 (A/B 비교용) */
+var THREE_H = 3*60*60*1000;
+var WD=['일','월','화','수','목','금','토'];
+var lastId=null, timer=null;
+
+function el(id){ return document.getElementById(id); }
+function pad(n){ return String(n).length<2 ? '0'+n : String(n); }
+
+function load(){
+  try{
+    var raw=localStorage.getItem(K);
+    if(raw){ var d=JSON.parse(raw); if(d && Array.isArray(d.records)) return d; }
+  }catch(e){}
+  return {version:1, records:[]};
+}
+function save(d){
+  try{ localStorage.setItem(K, JSON.stringify(d)); return true; }
+  catch(e){ return false; }
+}
+/* ⭐ v0.2 — 저장이 되는 환경인지 먼저 물어본다.
+   v0.1은 저장 실패를 조용히 삼키고 "쌓였어요"라고 말했다(바둑루프 C4·C5). */
+function storageWorks(){
+  try{
+    localStorage.setItem('savewatch_probe','1');
+    localStorage.removeItem('savewatch_probe');
+    return true;
+  }catch(e){ return false; }
+}
+/* 기록 한 건이 성한지 본다. 손상된 백업 하나가 총량 전체를 죽이지 못하게(C8),
+   기기 시계를 앞당겨 만든 비현실적 값도 막는다(C9). */
+var MAX_ONE = 24*60*60;                      /* 한 번의 기도는 24시간을 넘지 않는다 */
+function sane(r){
+  if(!r || typeof r.id!=='string' || typeof r.start!=='string') return false;
+  if(typeof r.seconds!=='number' || !isFinite(r.seconds)) return false;   /* NaN·Infinity */
+  if(r.seconds < 0 || r.seconds > MAX_ONE) return false;                  /* 음수·비현실 */
+  if(isNaN(new Date(r.start).getTime())) return false;                    /* 못 읽는 날짜 */
+  return true;
+}
+function getRun(){
+  try{ var r=JSON.parse(localStorage.getItem(RK)); if(r && r.start) return r; }catch(e){}
+  return null;
+}
+/* 시작 시각의 밀리초. start 문자열은 초까지만 담으므로 재는 일에는 t를 쓴다 —
+   t가 없는 옛 기록만 문자열을 되읽는다(최대 1초 오차). */
+function runMs(run){
+  return (typeof run.t==='number' && isFinite(run.t)) ? run.t : new Date(run.start).getTime();
+}
+
+/* ── 기도 중 시간 표시 방식 (A/B 비교) ────────────────
+   quiet = 작고 낮게 (기본)  ·  hide = 아예 감춤  ·  show = 예전처럼 크게(대조군)
+
+   링크 뒤에 ?t=hide 처럼 붙여 나눠주면, 사람마다 다른 판을 쓰게 된다.
+   ⭐ 한 번 읽은 값은 기기에 적어 둔다 — 홈 화면에 추가하면 링크의 꼬리표가
+      떨어져 나갈 수 있는데, 그때도 처음 받은 판이 유지돼야 비교가 성립한다.
+   설정 화면은 만들지 않는다(P1 — 버튼 하나 원칙).                        */
+function mode(){
+  try{
+    var q=(String(location.search).match(/[?&]t=(quiet|hide|show|sanctuary)/)||[])[1];
+    if(q){ localStorage.setItem(MK,q); return q; }
+    return localStorage.getItem(MK) || 'quiet';
+  }catch(e){ return 'quiet'; }
+}
+
+/* ── 시각·형식 ─────────────────────────────────────── */
+function localISO(dt){
+  var off=-dt.getTimezoneOffset(), s=off>=0?'+':'-', a=Math.abs(off);
+  return dt.getFullYear()+'-'+pad(dt.getMonth()+1)+'-'+pad(dt.getDate())+'T'+
+         pad(dt.getHours())+':'+pad(dt.getMinutes())+':'+pad(dt.getSeconds())+
+         s+pad(Math.floor(a/60))+':'+pad(a%60);
+}
+function makeId(iso){
+  var t=new Date(iso);
+  return 'r_'+t.getFullYear()+pad(t.getMonth()+1)+pad(t.getDate())+'T'+
+         pad(t.getHours())+pad(t.getMinutes())+pad(t.getSeconds())+'_'+
+         Math.random().toString(36).slice(2,6);
+}
+function dayKey(d){ return d.getFullYear()+'-'+d.getMonth()+'-'+d.getDate(); }
+
+/* ⭐ v0.2 — 시간을 말하는 방법은 하나뿐이다(fmtDur).
+   v0.1은 fmtTotal(분 절사)·fmtGain(초 허용)이 따로 놀아서 한 화면에서
+   "18초가 쌓였어요"와 "모두 0분"이 동시에 참이라 주장했다(바둑루프 C1).
+
+   규칙 — 반올림도 올림도 하지 않는다. 잔고는 부풀지 않는다.
+     · 1시간 미만: 분과 초를 함께 (넣으면 눈금이 반드시 움직인다 = P7)
+     · 1시간 이상: 시간과 분 (초는 소음이 되고 P2 가독이 이긴다)
+   한 번 시간 단위로 올라가면 되돌아오지 않는다. */
+function fmtDur(sec){
+  sec = Math.max(0, Math.floor(sec||0));
+  if(sec < 60)   return sec+'초';
+  var m=Math.floor(sec/60), s=sec%60, h=Math.floor(m/60);
+  if(sec < 3600) return s>0 ? m+'분 '+s+'초' : m+'분';
+  return (m%60)>0 ? h+'시간 '+(m%60)+'분' : h+'시간';
+}
+
+/* 기도 중 실시간 표시. 초가 멈춰 보이면 안 되므로 항상 초까지 쓴다. */
+function fmtElapsed(sec){
+  var h=Math.floor(sec/3600), m=Math.floor(sec%3600/60), s=sec%60;
+  if(h>0) return h+'시간 '+pad(m)+'분 '+pad(s)+'초';
+  if(m>0) return m+'분 '+pad(s)+'초';
+  return s+'초';
+}
+
+/* ⭐ v0.2 — 한국어 조사 자동 선택.
+   한글 음절은 0xAC00부터 종성 28칸 주기로 배열되므로 (코드-0xAC00)%28 이
+   0이 아니면 받침이 있다. 한글이 아닌 글자로 끝나면 이 계산이 엉뚱한 값을
+   내므로 범위를 먼저 막는다(v0.1은 '이'를 문자열에 박아 "18초이"가 나왔다).
+   ※ '으로/로'는 ㄹ받침 예외가 있어 이 함수로 못 푼다 — 쓰지 말 것. */
+function josa(word, pair){
+  var p=pair.split('/'), c=String(word).charCodeAt(String(word).length-1), jong;
+  if(c>=0xAC00 && c<=0xD7A3)      jong = ((c-0xAC00) % 28) > 0;
+  else if(c>=0x30 && c<=0x39)     jong = [1,1,0,1,0,0,1,1,1,0][c-0x30]===1; /* 영일이삼사오육칠팔구 */
+  else                            jong = false;
+  return word + (jong ? p[0] : p[1]);
+}
+
+function fmtDay(iso){
+  var t=new Date(iso);
+  return (t.getMonth()+1)+'월 '+t.getDate()+'일 ('+WD[t.getDay()]+')';
+}
+/* 같은 날 여러 건이면 날짜만으로는 구분이 안 된다 — 시각을 붙인다.
+   전연령이므로 24시간제가 아니라 오전/오후 표기를 쓴다. */
+function fmtClock(iso){
+  var t=new Date(iso), h=t.getHours(), ap=h<12?'오전':'오후', hh=h%12;
+  if(hh===0) hh=12;
+  return ap+' '+hh+':'+pad(t.getMinutes());
+}
+
+function totalOf(d){
+  var s=0;
+  for(var i=0;i<d.records.length;i++) s+=(d.records[i].seconds||0);
+  return s;
+}
+function todayOf(d){
+  var k=dayKey(new Date()), s=0;
+  for(var i=0;i<d.records.length;i++){
+    if(dayKey(new Date(d.records[i].start))===k) s+=(d.records[i].seconds||0);
+  }
+  return s;
+}
+
+/* ── 화면 전환 ─────────────────────────────────────── */
+function show(id){
+  var ss=document.querySelectorAll('section.screen');
+  for(var i=0;i<ss.length;i++) ss[i].hidden = (ss[i].id!==id);
+  if(id==='praying'){ applyMode(); startTicking(); sanctuaryEnter(); }
+  else { stopTicking(); sanctuaryLeave(); }
+  if(id==='home') renderHome();
+  if(id==='history') renderHistory();
+  window.scrollTo(0,0);
+}
+
+function renderHome(){
+  var d=load(), tot=totalOf(d), tod=todayOf(d);
+  if(tot===0){
+    /* 화면의 0은 오직 "기록 0건"일 때만 존재한다(P7) */
+    el('homeLabel').textContent='기도 시간을 재어 보세요';
+    el('totalText').textContent='여기에 기도가 쌓입니다';
+    el('totalText').style.fontSize='clamp(28px, 8vw, 44px)';
+    el('todayText').hidden=true;
+  }else{
+    el('homeLabel').textContent='지금까지 쌓인 기도';
+    el('totalText').textContent=fmtDur(tot);
+    el('totalText').style.fontSize='';
+    /* 오늘 기록이 없는 날은 아예 감춘다 — 0을 들이밀지 않는다(P3) */
+    if(tod>0){ el('todayText').textContent='오늘 · '+fmtDur(tod); el('todayText').hidden=false; }
+    else { el('todayText').hidden=true; }
+  }
+  el('totalText').setAttribute('aria-label','지금까지 쌓인 기도 '+fmtDur(tot));
+  /* 저장이 아예 안 되는 환경이면 재기 전에 알린다(P4) */
+  el('homeWarn').hidden = storageWorks();
+}
+
+function renderHistory(){
+  var d=load(), ul=el('list');
+  ul.innerHTML='';
+  if(!d.records.length){
+    var li=document.createElement('li');
+    li.className='empty'; li.textContent='아직 기록이 없어요.';
+    ul.appendChild(li); return;
+  }
+  var rs=d.records.slice().sort(function(a,b){
+    return new Date(b.start)-new Date(a.start);           /* 최신이 위 */
+  });
+  for(var i=0;i<rs.length;i++){
+
+    var r=rs[i], li=document.createElement('li'); li.className='item';
+    var row=document.createElement('div'); row.className='row2';
+    var w=document.createElement('div'); w.className='when';
+    w.textContent=fmtDay(r.start)+' '+fmtClock(r.start)+' · '+fmtDur(r.seconds||0);
+    var b=document.createElement('button'); b.className='iconbtn'; b.textContent='손보기';
+    b.setAttribute('aria-label','이 기록 손보기');
+    (function(id){ b.addEventListener('click', function(e){ e.stopPropagation(); openSheet(id); }); })(r.id);
+    row.appendChild(w); row.appendChild(b); li.appendChild(row);
+    if(r.note){
+      var n=document.createElement('div'); n.className='note'; n.textContent=r.note;
+      li.appendChild(n);
+    }
+    ul.appendChild(li);
+  }
+}
+
+/* ── 재는 일 ───────────────────────────────────────────
+   측정은 언제나 두 시각의 차이다. setInterval은 보여주기 전용이라
+   화면이 꺼지든 브라우저가 죽든 잰 시간은 틀어지지 않는다(설계 §4-1). */
+/* 기도 중 화면을 이번 판에 맞게 꾸민다 */
+function applyMode(){
+  var m=mode(), t=el('elapsedText');
+  t.className = (m==='show') ? 'hero' : 'hero quiet';
+  t.hidden    = (m==='hide' || m==='sanctuary');
+}
+
+/* ── 성소 모드 ──────────────────────────────────────────
+   시작하고 잠시 뒤 화면이 가라앉는다. 끝낼 때는 두 번 두드린다.
+   ⭐ 한 번이 아니라 두 번인 이유: 주머니 속에서 스치기만 해도 기도가
+      끝나버리면 안 된다. 두 번 두드림은 우연히 일어나지 않는다.       */
+var SANCT_DELAY = 4000;      /* 화면이 가라앉기까지 */
+var TAP_GAP     = 600;       /* 두 번으로 치는 간격 */
+var sanctTimer=null, lastTap=0;
+
+function sanctuaryEnter(){
+  sanctuaryLeave();
+  if(mode()!=='sanctuary') return;
+  sanctTimer=setTimeout(function(){
+    document.body.className='sanctuary';
+  }, SANCT_DELAY);
+}
+function sanctuaryLeave(){
+  if(sanctTimer){ clearTimeout(sanctTimer); sanctTimer=null; }
+  document.body.className='';
+  lastTap=0;
+}
+/* 화면 아무 데나 두 번 → 기도를 마친다 */
+function sanctuaryTap(){
+  if(mode()!=='sanctuary' || el('praying').hidden) return;
+  var now=Date.now();
+  if(lastTap && now-lastTap < TAP_GAP){ lastTap=0; endPrayer(); }
+  else lastTap=now;
+}
+
+function tick(){
+  var run=getRun(); if(!run) return;
+  var sec=Math.max(0, Math.round((Date.now()-runMs(run))/1000));
+  el('elapsedText').textContent=fmtElapsed(sec);
+}
+/* 감추는 판에서는 초를 세어 보여줄 이유가 없다 — 배터리도 아끼고,
+   무엇보다 바뀔 것 없는 화면을 1초마다 건드리지 않는다.
+   잰 시간은 [끝]을 누를 때 두 시각의 차이로 구하므로 영향이 없다. */
+function startTicking(){
+  stopTicking();
+  var m=mode();
+  if(m==='hide' || m==='sanctuary') return;
+  tick(); timer=setInterval(tick,1000);
+}
+function stopTicking(){ if(timer){ clearInterval(timer); timer=null; } }
+
+function startPrayer(){
+  if(navigator.storage && navigator.storage.persist){
+    try{ navigator.storage.persist(); }catch(e){}        /* 사용자 동작 중에 요청 */
+  }
+  var now=new Date(), ok=false;
+  try{
+    localStorage.setItem(RK, JSON.stringify({start:localISO(now), t:now.getTime()}));
+    ok=true;
+  }catch(e){}
+  /* ⭐ v0.2 — 시작을 못 적었으면 재는 척하지 않는다.
+     v0.1은 그냥 기도 중 화면으로 들어갔고, [끝]을 누르면 아무 설명 없이
+     홈으로 돌아가며 잰 시간이 통째로 사라졌다(바둑루프 C5, 15분 소실 실측). */
+  if(!ok){ el('homeWarn').hidden=false; show('home'); return; }
+  show('praying');
+}
+
+/* 기록을 남긴다. [끝]을 누른 그 순간 이미 저장이 끝난다 —
+   확인 화면을 못 보고 앱을 꺼도 잃지 않는다(P4). */
+function commit(seconds, startISO){
+  var d=load();
+  seconds = Math.min(Math.max(0, seconds), MAX_ONE);       /* 시계 조작 상한(C9) */
+  var rec={ id:makeId(startISO), who:'나', start:startISO, seconds:seconds, note:'' };
+  d.records.push(rec);
+  var ok=save(d);                                          /* ⭐ 반환값을 버리지 않는다 */
+  try{ localStorage.removeItem(RK); }catch(e){}
+  lastId = ok ? rec.id : null;
+  return {rec:rec, total:totalOf(d), saved:ok};
+}
+
+function endPrayer(){
+  var run=getRun(); if(!run){ show('home'); return; }
+  var sec=Math.max(0, Math.round((Date.now()-runMs(run))/1000));
+  var out=commit(sec, run.start);
+  /* ⭐ v0.2 — "오늘"을 뺐다. v0.1은 방금 잰 양에 "오늘"을 붙여서,
+     자정을 넘긴 기도에서 "오늘 20분 쌓였어요" 하고는 홈에서 오늘 줄이
+     사라졌고(C6), 하루 두 번째 기도에선 "오늘 5분" vs "오늘 · 10분"으로
+     두 숫자가 어긋났다(C7). 조사도 받침을 보고 고른다(C3). */
+  el('gainText').textContent = out.saved
+        ? josa(fmtDur(sec),'이/가')+' 쌓였어요'
+        : '방금 잰 시간 '+fmtDur(sec);
+  el('newTotalText').textContent = out.saved ? '모두 '+fmtDur(out.total) : '';
+  el('doneWarn').hidden = out.saved;                       /* 저장 실패를 숨기지 않는다(C4) */
+  el('noteInput').hidden = !out.saved;                     /* 못 남길 메모는 묻지 않는다 */
+  el('noteInput').value='';                                /* 자동 포커스 없음 = 키보드 안 뜸 */
+  var shown=false;
+  try{ shown = localStorage.getItem(NK)==='1'; }catch(e){}
+  el('backupCard').hidden = !(out.saved && out.total>=3600 && !shown);
+  show('done');
+}
+
+function dismissBackupCard(){
+  try{ localStorage.setItem(NK,'1'); }catch(e){}
+  el('backupCard').hidden=true;
+}
+
+/* ── 내보내기 · 가져오기 (P4 마지막 안전판) ────────── */
+function exportJSON(){
+  var d=load(), t=new Date();
+  var blob=new Blob([JSON.stringify(d,null,2)],{type:'application/json'});
+  var url=URL.createObjectURL(blob), a=document.createElement('a');
+  a.href=url;
+  a.download='savewatch_backup_'+t.getFullYear()+pad(t.getMonth()+1)+pad(t.getDate())+'.json';
+  document.body.appendChild(a); a.click(); document.body.removeChild(a);
+  setTimeout(function(){ URL.revokeObjectURL(url); }, 1000);
+}
+function importJSON(file){
+  var fr=new FileReader();
+  fr.onload=function(){
+    var inc;
+    try{ inc=JSON.parse(fr.result); }catch(e){ toast('파일을 읽지 못했어요'); return; }
+    if(!inc || !Array.isArray(inc.records)){ toast('세이브 워치 기록 파일이 아니에요'); return; }
+    var d=load(), seen={}, i, r, added=0, skipped=0;
+    for(i=0;i<d.records.length;i++) seen[d.records[i].id]=1;
+    for(i=0;i<inc.records.length;i++){
+      r=inc.records[i];
+      if(!sane(r)){ skipped++; continue; }        /* ⭐ NaN·음수·비현실 값 차단(C8) */
+      if(seen[r.id]) continue;                    /* 이미 있는 것은 조용히 넘긴다 */
+      d.records.push({ id:r.id, who:r.who||'나', start:r.start,
+                       seconds:r.seconds, note:r.note||'' });
+      seen[r.id]=1; added++;
+    }
+    d.records.sort(function(a,b){ return new Date(a.start)-new Date(b.start); });
+    var ok=save(d); renderHistory();
+    /* 건너뛴 건수를 반드시 말한다 — 조용히 버리면 그것도 P4 위반이다 */
+    var msg = !ok ? '저장하지 못했어요'
+            : added>0 ? added+'개를 가져왔어요' : '새로 가져올 기록이 없었어요';
+    if(skipped>0) msg += ' (성하지 않은 '+skipped+'개는 건너뛰었어요)';
+    toast(msg);
+  };
+  fr.onerror=function(){ toast('파일을 읽지 못했어요'); };
+  fr.readAsText(file);
+}
+function toast(m){
+  el('toast').textContent=m;
+  setTimeout(function(){ if(el('toast').textContent===m) el('toast').textContent=''; }, 4000);
+}
+
+/* ── 켤 때 ─────────────────────────────────────────── */
+function boot(){
+  /* 링크의 꼬리표(?t=…)를 열자마자 기기에 적어 둔다.
+     기도를 시작해야만 읽으면, 홈만 보고 나간 사람은 판이 저장되지 않아
+     다음에 열 때 기본값으로 돌아간다 — 그러면 A/B 비교가 깨진다. */
+  mode();
+  var run=getRun();
+  if(run){
+    var ms=Date.now()-runMs(run);
+    if(ms < THREE_H){ show('praying'); return; }          /* 그대로 이어서 잰다 */
+    var sec=Math.max(0, Math.round(ms/1000));
+    el('recoverText').textContent=fmtElapsed(sec);
+    /* 얼마가 쌓이는지 버튼에 그대로 적어 둔다 — 모르고 누르는 일이 없도록.
+       24시간을 넘으면 그만큼만 쌓인다는 것도 그대로 적는다(C9 상한). */
+    el('btnKeep').textContent=fmtDur(Math.min(sec, MAX_ONE))+' 쌓기';
+    show('recover');
+    return;
+  }
+  show('home');
+}
+
+/* ── 버튼 연결 ─────────────────────────────────────── */
+el('btnStart').addEventListener('click', startPrayer);
+el('btnEnd').addEventListener('click', endPrayer);
+el('btnConfirm').addEventListener('click', function(){
+  var note=el('noteInput').value.trim();
+  if(note && lastId){
+    var d=load();
+    for(var i=0;i<d.records.length;i++){
+      if(d.records[i].id===lastId){ d.records[i].note=note.slice(0,60); break; }
+    }
+    save(d);
+  }
+  lastId=null; show('home');
+});
+el('btnBackupNow').addEventListener('click', function(){ exportJSON(); dismissBackupCard(); });
+el('btnBackupLater').addEventListener('click', dismissBackupCard);
+el('btnHistory').addEventListener('click', function(){ show('history'); });
+el('btnBack').addEventListener('click', function(){ show('home'); });
+el('btnExport').addEventListener('click', exportJSON);
+el('btnImport').addEventListener('click', function(){ el('fileInput').click(); });
+el('fileInput').addEventListener('change', function(e){
+  if(e.target.files && e.target.files[0]) importJSON(e.target.files[0]);
+  e.target.value='';
+});
+el('btnKeep').addEventListener('click', function(){
+  var run=getRun(); if(!run){ show('home'); return; }
+  var sec=Math.max(0, Math.round((Date.now()-runMs(run))/1000));
+  var out=commit(sec, run.start);
+  el('gainText').textContent = out.saved
+        ? josa(fmtDur(out.rec.seconds),'이/가')+' 쌓였어요'
+        : '방금 잰 시간 '+fmtDur(out.rec.seconds);
+  el('newTotalText').textContent = out.saved ? '모두 '+fmtDur(out.total) : '';
+  el('doneWarn').hidden = out.saved;
+  el('noteInput').hidden = !out.saved;
+  el('noteInput').value=''; el('backupCard').hidden=true;
+  show('done');
+});
+el('btnDrop').addEventListener('click', function(){
+  try{ localStorage.removeItem(RK); }catch(e){}
+  show('home');
+});
+el('noteInput').addEventListener('keydown', function(e){
+  if(e.key==='Enter'){ e.preventDefault(); el('btnConfirm').click(); }
+});
+document.addEventListener('visibilitychange', function(){
+  if(!document.hidden && !el('praying').hidden) tick();
+});
+/* 성소 모드에서 화면 아무 데나 두 번 두드리면 기도를 마친다 */
+document.addEventListener('click', sanctuaryTap);
+
+
+/* ── 지난 기록 손보기 (후보 공통) ─────────────────────────
+   히로님 실사용 지적 3건:
+     ① 잘못된 기록을 지울 수 없다  ② 앱 없이 기도한 날을 더할 수 없다
+     ③ 메모를 고칠 수 없다
+   ⚠️ P3(잔고 불감소)는 "하루 빠졌다고 벌주지 말자"는 뜻이지
+      "가짜 기록을 평생 안고 가자"가 아니다 — 원칙을 잘못 적용했던 자리다. */
+var editingId=null;
+
+function openSheet(id){
+  var d=load(), r=null;
+  for(var i=0;i<d.records.length;i++) if(d.records[i].id===id) r=d.records[i];
+  if(!r) return;
+  editingId=id;
+  el('sheetWhen').textContent = fmtDay(r.start)+' '+fmtClock(r.start)+' · '+fmtDur(r.seconds||0);
+  el('sheetNote').value = r.note||'';
+  el('backdrop').hidden=false; el('sheet').hidden=false;
+}
+function closeSheet(){
+  el('sheet').hidden=true; el('addSheet').hidden=true; el('backdrop').hidden=true;
+  editingId=null;
+}
+function saveNote(){
+  if(!editingId) return closeSheet();
+  var d=load();
+  for(var i=0;i<d.records.length;i++){
+    if(d.records[i].id===editingId){ d.records[i].note=el('sheetNote').value.trim().slice(0,60); break; }
+  }
+  var ok=save(d); closeSheet(); renderHistory();
+  toast(ok?'고쳤어요':'저장하지 못했어요');
+}
+function deleteRecord(){
+  if(!editingId) return closeSheet();
+  var d=load(), keep=[];
+  for(var i=0;i<d.records.length;i++) if(d.records[i].id!==editingId) keep.push(d.records[i]);
+  d.records=keep;
+  var ok=save(d); closeSheet(); renderHistory();
+  toast(ok?'지웠어요':'저장하지 못했어요');
+}
+function openAdd(){
+  el('addMin').value=''; el('addNote').value='';
+  el('backdrop').hidden=false; el('addSheet').hidden=false;
+}
+/* 손으로 더한 기록도 같은 4칸을 쓴다. 시작 시각은 "지금"으로 둔다 —
+   언제 기도했는지까지 묻기 시작하면 문턱이 올라간다(P1). */
+function addManual(min){
+  min = Math.floor(min||0);
+  if(!(min>0)){ toast('몇 분인지 적어 주세요'); return; }
+  if(min>1440) min=1440;
+  var now=new Date(), iso=localISO(now);
+  var d=load();
+  d.records.push({ id:makeId(iso), who:'나', start:iso,
+                   seconds:min*60, note:el('addNote').value.trim().slice(0,60) });
+  var ok=save(d); closeSheet(); renderHistory();
+  toast(ok? josa(fmtDur(min*60),'이/가')+' 더해졌어요' : '저장하지 못했어요');
+}
+
+el('sheetSave').addEventListener('click', saveNote);
+el('sheetDelete').addEventListener('click', deleteRecord);
+el('sheetClose').addEventListener('click', closeSheet);
+el('backdrop').addEventListener('click', closeSheet);
+el('addClose').addEventListener('click', closeSheet);
+el('addSave').addEventListener('click', function(){ addManual(parseInt(el('addMin').value,10)); });
+var addBtns=document.querySelectorAll('[data-add]');
+for(var ai=0; ai<addBtns.length; ai++){
+  (function(b){ b.addEventListener('click', function(){ addManual(parseInt(b.getAttribute('data-add'),10)); }); })(addBtns[ai]);
+}
+
+boot();
+
+/* ⭐ v0.3 — 인터넷이 없어도 열리게 한다.
+   화면 파일을 기기에 넣어 두는 부품(sw.js)을 등록한다. 기록에는 손대지 않는다.
+   ※ 파일을 더블클릭해 여는 경우(file://)는 보안 컨텍스트가 아니라 등록되지 않는다.
+      그때는 이미 파일이 손안에 있으므로 오프라인이 문제되지 않는다.
+   ※ 등록에 실패해도 앱은 그대로 돈다 — 오프라인만 안 될 뿐이다. */
+if ('serviceWorker' in navigator && location.protocol.indexOf('http') === 0) {
+  window.addEventListener('load', function () {
+    navigator.serviceWorker.register('sw.js').catch(function () {});
+  });
+}
+})();
+</script>
+</body>
+</html>
