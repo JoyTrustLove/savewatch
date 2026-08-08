@@ -576,6 +576,17 @@ document.addEventListener('visibilitychange', function(){
 });
 
 boot();
+
+/* ⭐ v0.3 — 인터넷이 없어도 열리게 한다.
+   화면 파일을 기기에 넣어 두는 부품(sw.js)을 등록한다. 기록에는 손대지 않는다.
+   ※ 파일을 더블클릭해 여는 경우(file://)는 보안 컨텍스트가 아니라 등록되지 않는다.
+      그때는 이미 파일이 손안에 있으므로 오프라인이 문제되지 않는다.
+   ※ 등록에 실패해도 앱은 그대로 돈다 — 오프라인만 안 될 뿐이다. */
+if ('serviceWorker' in navigator && location.protocol.indexOf('http') === 0) {
+  window.addEventListener('load', function () {
+    navigator.serviceWorker.register('sw.js').catch(function () {});
+  });
+}
 })();
 </script>
 </body>
