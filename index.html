@@ -127,6 +127,10 @@ button{font:inherit; color:inherit; touch-action:manipulation; user-select:none;
 .list{list-style:none; margin:0; padding:0; flex:1; overflow-y:auto;}
 .item{padding:18px 4px; border-bottom:1px solid var(--line);}
 .item .when{font-size:20px; font-weight:700;}
+/* [고치기] 단추가 폭을 가져가 한 줄에 안 들어간다. 억지로 줄이지 않고
+   두 줄로 나누되 위계를 준다 — 이 앱의 주인공은 "얼마나"이지 "언제"가 아니다. */
+.item .when .w-when{display:block; font-size:18px; font-weight:600; color:var(--muted);}
+.item .when .w-dur{display:block; font-size:22px; font-weight:800; margin-top:2px;}
 .item .note{font-size:18px; color:var(--muted); margin-top:6px; word-break:break-word;}
 .empty{color:var(--muted); font-size:20px; padding:28px 4px;}
 
@@ -553,7 +557,11 @@ function renderHistory(){
     var row=document.createElement('div'); row.className='row2';
     var w=document.createElement('div'); w.className='when';
     /* 같은 날 여러 건을 구분하려면 시각이 있어야 한다 */
-    w.textContent=recLabel(r);
+    var w1=document.createElement('span'); w1.className='w-when';
+    w1.textContent=fmtDay(r.start)+' '+fmtClock(r.start)+' ';
+    var w2=document.createElement('span'); w2.className='w-dur';
+    w2.textContent=fmtDur(r.seconds||0);
+    w.appendChild(w1); w.appendChild(w2);
     /* 후보 B — 진짜 button이라 키보드·화면낭독기로 닿는다.
        라벨에 "무엇을" 고치는지 넣는다. 모든 줄이 "이 기록 고치기"면
        낭독기 목록에서 서로 구별되지 않는다(S12 G7). */
