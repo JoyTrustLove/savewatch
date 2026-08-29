@@ -12,7 +12,7 @@
    대신 3초를 기다려도 응답이 없으면 기다리지 않고 캐시를 내준다
    — 느린 신호 아래서 앱이 안 열리는 편이 더 나쁘다.                */
 
-var CACHE  = 'savewatch-v3';        /* 화면 구조가 바뀌면 숫자를 올린다 */
+var CACHE  = 'savewatch-v4';        /* 화면 구조가 바뀌면 숫자를 올린다 */
 var ASSETS = ['./', './index.html'];
 var NET_TIMEOUT = 3000;
 
