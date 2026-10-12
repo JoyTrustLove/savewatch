@@ -14,7 +14,7 @@
    대신 3초를 기다려도 응답이 없으면 기다리지 않고 캐시를 내준다
    — 느린 신호 아래서 앱이 안 열리는 편이 더 나쁘다.                */
 
-var CACHE  = 'savewatch-v6';        /* 화면 구조가 바뀌면 숫자를 올린다 */
+var CACHE  = 'savewatch-v7';        /* 화면 구조가 바뀌면 숫자를 올린다 */
 var ASSETS = ['./', './index.html'];
 var NET_TIMEOUT = 3000;
 
@@ -35,6 +35,14 @@ self.addEventListener('activate', function (e) {
   );
 });
 
+function cached(request){
+  return caches.match(request).then(function(hit){
+    if(hit) return hit;
+    return caches.match('./index.html').then(function(index){
+      return index || caches.match('./');
+    });
+  });
+}
 self.addEventListener('fetch', function (e) {
   if (e.request.method !== 'GET') return;
   if (e.request.url.indexOf('http') !== 0) return;
@@ -50,15 +58,14 @@ self.addEventListener('fetch', function (e) {
           var copy = res.clone();
           caches.open(CACHE).then(function (c) { c.put(e.request, copy); });
         }
+        if(!res || !res.ok) return cached(e.request).then(function(hit){ return hit || res; });
         return res;
       }),
       new Promise(function (_, reject) {
         setTimeout(function () { reject(new Error('느린 신호')); }, NET_TIMEOUT);
       })
     ]).catch(function () {
-      return caches.match(e.request).then(function (hit) {
-        return hit || caches.match('./index.html') || caches.match('./');
-      });
+      return cached(e.request);
     })
   );
 });
