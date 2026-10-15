@@ -14,8 +14,9 @@
    대신 3초를 기다려도 응답이 없으면 기다리지 않고 캐시를 내준다
    — 느린 신호 아래서 앱이 안 열리는 편이 더 나쁘다.                */
 
-var CACHE  = 'savewatch-v7';        /* 화면 구조가 바뀌면 숫자를 올린다 */
-var ASSETS = ['./', './index.html'];
+var CACHE  = 'savewatch-v8';        /* 화면 구조가 바뀌면 숫자를 올린다 */
+var ASSETS = ['./', './index.html', './manifest.webmanifest', './icon-192.png',
+  './icon-512.png', './icon-maskable-512.png', './about.html', './privacy.html'];
 var NET_TIMEOUT = 3000;
 
 self.addEventListener('install', function (e) {
@@ -29,7 +30,7 @@ self.addEventListener('activate', function (e) {
   e.waitUntil(
     caches.keys().then(function (keys) {
       return Promise.all(keys.map(function (k) {        /* 옛 캐시는 지운다 */
-        return k === CACHE ? null : caches.delete(k);
+        return k.indexOf('savewatch-')===0 && k!==CACHE ? caches.delete(k) : null;
       }));
     }).then(function () { return self.clients.claim(); })
   );
@@ -37,7 +38,7 @@ self.addEventListener('activate', function (e) {
 
 function cached(request){
   return caches.match(request).then(function(hit){
-    if(hit) return hit;
+    if(hit || request.mode!=='navigate') return hit;
     return caches.match('./index.html').then(function(index){
       return index || caches.match('./');
     });
@@ -45,27 +46,27 @@ function cached(request){
 }
 self.addEventListener('fetch', function (e) {
   if (e.request.method !== 'GET') return;
-  if (e.request.url.indexOf('http') !== 0) return;
+  var url=new URL(e.request.url), scope=new URL(self.registration.scope);
+  if (url.origin!==scope.origin || url.pathname.indexOf(scope.pathname)!==0) return;
 
+  var write=Promise.resolve();
+  /* 원 요청의 mode·credentials·헤더는 보존하고 HTTP 캐시만 우회한다. */
+  var network=fetch(e.request, { cache: 'reload' }).then(function (res) {
+    if (res && res.ok) {
+      var copy=res.clone();
+      write=caches.open(CACHE).then(function(c){ return c.put(e.request, copy); }).catch(function(){});
+    }
+    if(!res || !res.ok) return cached(e.request).then(function(hit){ return hit || res; });
+    return res;
+  });
+  /* 3초 뒤 캐시가 먼저 표시돼도 늦게 받은 화면의 저장까지 기다린다. */
+  e.waitUntil(network.then(function(){ return write; }).catch(function(){}));
   e.respondWith(
     Promise.race([
-      /* ⚠️ 그냥 fetch(e.request)를 쓰면 브라우저 HTTP 캐시를 탄다.
-         GitHub Pages가 max-age=600을 주므로 network-first인데도
-         10분 동안 옛 파일이 "새로 받은 것처럼" 돌아온다(2026-08-29 실측).
-         cache:'reload'로 원본을 받되, 받은 것은 아래에서 캐시에 넣는다. */
-      fetch(new Request(e.request.url, { cache: 'reload' })).then(function (res) {
-        if (res && res.ok) {
-          var copy = res.clone();
-          caches.open(CACHE).then(function (c) { c.put(e.request, copy); });
-        }
-        if(!res || !res.ok) return cached(e.request).then(function(hit){ return hit || res; });
-        return res;
-      }),
+      network,
       new Promise(function (_, reject) {
         setTimeout(function () { reject(new Error('느린 신호')); }, NET_TIMEOUT);
       })
-    ]).catch(function () {
-      return cached(e.request);
-    })
+    ]).catch(function () { return cached(e.request); })
   );
 });
